@@ -1,0 +1,16 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/change.css' %}">
+
+<div class="center">
+  <h1>Add New Post</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <div class="inputbox">
+      <button type="submit">Send</button>
+    </div>
+  </form>
+</div>
