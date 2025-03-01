@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Blog Website</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="{% static 'images/icons/blog.png' %}" />
+  <link rel="stylesheet" href="{% static 'css/Forms.css' %}">
+</head>
+<body>
+
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active"> Login to your account</h2>
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="{% static 'images/login.svg' %}" id="icon" alt="User Icon" />
+      </div>
+      {% if form.errors %}
+      <div class="errors">
+          <ul>
+              {% for field in form %}
+                  {% for error in field.errors %}
+                      <li> {{ field.label }}: {{ error }} </li>
+                  {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                  <li> {{ error }} </li>
+              {% endfor %}
+          </ul>
+      </div>
+  {% endif %}
+  
+      <!-- Login Form -->
+      <form method="post">       
+        {% csrf_token %} 
+     
+     <div id="div_id_username" class="form-group"> <label for="id_username" class=" requiredField">
+      <input type="text" placeholder="Username" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+      <input type="password" placeholder="Password" name="password" autocomplete="current-password" required id="id_password">
+      <input type="submit" value="Login" class="btn btn-success">
+     </form>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="/account/password_reset/">Forgot Password?</a>
+        <br>
+        <a class="underlineHover" href="/account/signup/">Create account</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/change.css' %}">
+
+{% if profile_form %}
+  <div class="center">
+    <h1>Informations</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <label> Name: </label>
+      {{ profile_form.name }}
+      <br>
+      <br>
+      <label> Age: </label>
+      {{ profile_form.age }}
+      <br>
+      <br>
+      <label> Number: </label>
+      {{ profile_form.number }}
+      <br>
+      <br>
+      <label> Address: </label>
+      {{ profile_form.address }}
+      <hr>
+
+      <img src="{{user.photo.url}}" style="width: 75px; height: 75px;"><br><br>
+      <input type="file" name="photo" accept="image/*" id="id_photo"><br><br><br>
+      
+      
+
+      <div class="inputbox">
+        <button type="submit" name="profile_form" value="Create">Edit</button>
+      </div>
+    </form>
+  </div>
+
+
+{% elif social_media_form %}
+<div class="center">
+  <h1>Social Medias</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {{ social_media_form.as_p}}
+    
+
+    <div class="inputbox">
+      <button type="submit" name="social_media_form" value="Create">Set</button>
+    </div>
+  </form>
+</div>
+
+{% endif %}

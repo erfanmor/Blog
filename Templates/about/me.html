@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-5">
+            <a class="navbar-brand" href="{% url 'home' %}">Blog Website</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'all_posts' %}">Posts</a></li>
+    
+    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'add_post' %}">Add Post</a></li>
+    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">{{ user.email }}</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_change' %}">Password Change</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_reset' %}">Password Reset</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}" ,
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                            </li>
+    
+                            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                            </form>
+                        </ul>
+                    </li>
+    
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <header class="py-5">
+        <div class="container px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xxl-6">
+                    <div class="text-center my-5">
+                        <h1 class="fw-bolder mb-3">About Me</h1>
+                        <p class="lead fw-normal text-muted mb-0">Hello, I am Erfan, a backend developer interested in
+                            security and solving algorithmic problems.</p><br>
+                        <p class="lead fw-normal text-muted mb-0">Visit from my <a
+                                href="https://github.com/erfanmor">Github</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- About section one-->
+    <section class="py-5 bg-light" id="scroll-target">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 align-items-center">
+                <h2 class="fw-bolder">Description :</h2>
+                <ul>
+                    <br>
+                    <li>
+                        <p class="lead fw-normal ">Abilities: </p>
+                        <ul>
+                            <li>
+                                <p class="lead fw-normal ">Django Framework</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">DRF (Django Rest Framework)</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">JWT and Token Authentication</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">Postgresql and Redis</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">Git and Github</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">Docker</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">Postman and Testfully</p>
+                            </li>
+                        </ul>
+                    </li>
+                    <hr>
+                    <li>
+                        <p class="lead fw-normal ">Little know: </p>
+                        <ul>
+                            <li>
+                                <p class="lead fw-normal ">Web security</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">html and css</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">js and ajax</p>
+                            </li>
+                            <li>
+                                <p class="lead fw-normal ">Linux</p>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+    {% endblock content %}

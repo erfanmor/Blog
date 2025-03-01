@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Blog Website</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="{% static 'images/icons/blog.png' %}" />
+  <link rel="stylesheet" href="{% static 'css/Forms.css' %}">
+</head>
+<body>
+
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active"> Create your account</h2>
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://d29fhpw069ctt2.cloudfront.net/icon/image/50724/preview.svg" id="icon" alt="User Icon" />
+      </div>
+    {% if form.errors %}
+        <div class="errors">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li> {{ error }} </li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li> {{ error }} </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+  
+      <!-- SignUp Form -->
+      <form method="post">
+        {% csrf_token %}   
+     
+     <div id="div_id_username" class="form-group"> <label for="id_username" class=" requiredField">
+        <input type="text" placeholder="Username" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus required aria-describedby="id_username_helptext" id="id_username">
+            <input type="email" name="email" placeholder="Email" maxlength="320" required id="id_email">   
+     </label> <div> <input type="password" placeholder="Password" name="password1" autocomplete="new-password" class="passwordinput form-control" aria-describedby="id_password1_helptext" id="id_password1"></div> </div> <div id="div_id_password2" class="form-group"> <label for="id_password2" class="">
+     <small id="hint_id_password1" class="form-text text-muted">
+        <ul>
+            <li>Your password can’t be too similar to your other information.</li>
+            <li>Your password must contain at least 8 characters.</li>
+            <li>Your password can’t be a commonly used password.</li>
+            <li>Your password can’t be entirely numeric.</li>
+        </ul>
+     </small>
+     </label> <div> <input type="password" placeholder="Password Confirmation" name="password2" autocomplete="new-password" class="passwordinput form-control" aria-describedby="id_password2_helptext" id="id_password2"></div> </div>
+     <small id="hint_id_password2" class="form-text text-muted">Enter the same password as before, for verification.</small>
+        <br>
+        <input type="submit" value="Sign UP" class="btn btn-success">
+     </form>
+
+
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="/account/password_reset/">Forgot Password?</a>
+        <br>
+        <a class="underlineHover" href="/account/login/">I already have an account</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Named scroll-timeline vertical</title>
+  <link rel="stylesheet" href="{% static 'css/list.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<section>
+  <div class="list" style="width: 300px;">
+    <ul>
+    {% for tag in tag_list %}
+    <li><a href="{% url 'posts_by_tag' tag.name %}">{{ tag }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div class="animation"></div>
+</section>
+<!-- partial -->
+  
+</body>
+</html>

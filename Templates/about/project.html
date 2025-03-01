@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="flex-shrink-0">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-5">
+            <a class="navbar-brand" href="{% url 'home' %}">Blog Website</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'all_posts' %}">Posts</a></li>
+    
+    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'add_post' %}">Add Post</a></li>
+    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">{{ user.email }}</a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_change' %}">Password Change</a></li>
+                            <li><a class="dropdown-item" href="{% url 'password_reset' %}">Password Reset</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout' %}" ,
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                            </li>
+    
+                            <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                            </form>
+                        </ul>
+                    </li>
+    
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <header class="py-5">
+        <div class="container px-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xxl-6">
+                    <div class="text-center my-5">
+                        <h1 class="fw-bolder mb-3">Blog project details</h1>
+                        <p class="lead fw-normal text-muted mb-0">Hello, Im Erfan and I am glad that you visited this
+                            section. I will try to keep the description short.</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- About section one-->
+    <section class="py-5 bg-light" id="scroll-target">
+        <div class="container px-5 my-5">
+            <div class="row gx-5 align-items-center">
+                <h2 class="fw-bolder">Description :</h2>
+                <ul>
+                    <br>
+                    <li>
+                        <p class="lead fw-normal">In this project used DRF and you can see its document from <a href="{% url 'swagger' %}">here</a>.</p>
+                        <p class="lead fw-normal">user-info API used Token authentication and user-posts API used JWT authentication. Except for these, none of them have authentication.</p>
+                    </li>
+                    <hr>
+                    <li>
+                        <p class="lead fw-normal">The codes for using postgresql and redis are available as comments in the database setting.</p>
+                    </li>
+                    <hr>
+                    <li>
+                        <p class="lead fw-normal">You can see source code (Blog) from <a href="https://github.com/erfanmor">github</a>.</p>
+                    </li>
+                    <hr>
+                    <li>
+                        <p class="lead fw-normal">In this project, I showed my familiarity with Frontend, such as changing html and css, as well as writing javascript and ajax but since the project is a backend project, the frontend is not overworked.</p>
+                    </li>
+                    <hr>
+                    <li>
+                        <p class="lead fw-normal">Due to additional costs used 'console.EmailBackend' instead of email server.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team members section-->
+    <section class="py-5 bg-light">
+        <div class="container px-5 my-5">
+            <div class="text-center">
+                <h2 class="fw-bolder">Features used in construction</h2>
+                <br>
+            </div>
+            <div class="row gx-5 row-cols-1 row-cols-sm-2 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="text-center">
+                        <img class="img-fluid rounded-circle mb-4 px-4" src="{% static 'images/icons/django.png' %}"
+                            alt="..." />
+                        <h5 class="fw-bolder">Django</h5>
+                        <div class="fst-italic text-muted">Backend Framework</div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-xl-0">
+                    <div class="text-center">
+                        <img class="img-fluid rounded-circle mb-4 px-4" src="{% static 'images/icons/postgresql.png' %}"
+                            alt="..." />
+                        <h5 class="fw-bolder">Postgresql</h5>
+                        <div class="fst-italic text-muted">Database</div>
+                    </div>
+                </div>
+                <div class="col mb-5 mb-5 mb-sm-0">
+                    <div class="text-center">
+                        <img class="img-fluid rounded-circle mb-4 px-4" src="https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/17/cd/a2/17cda2a0-b641-c3d0-3d22-141704a40eef/Icon.png/1200x630bb.png"
+                            alt="..." />
+                        <h5 class="fw-bolder">Redis</h5>
+                        <div class="fst-italic text-muted">Caches</div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="text-center">
+                        <img class="img-fluid rounded-circle mb-4 px-4" src="{% static 'images/icons/DRF.png' %}"
+                            alt="..." />
+                        <h5 class="fw-bolder">JWT and Token</h5>
+                        <div class="fst-italic text-muted">Authentication</div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="text-center">
+                        <img class="img-fluid rounded-circle mb-4 px-4" src="{% static 'images/icons/JWT.png' %}"
+                            alt="..." />
+                        <h5 class="fw-bolder">JWT and Token</h5>
+                        <div class="fst-italic text-muted">Authentication</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}

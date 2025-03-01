@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-5">
+            <a class="navbar-brand" href="index.html">Blog Website</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'all_posts' %}">Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'categories' %}">Categories</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user.email }}</a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                <li><a class="dropdown-item" href="{% url 'password_change' %}">Password Change</a></li>
+                                <li><a class="dropdown-item" href="{% url 'password_reset' %}">Password Reset</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}", onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                                
+                                <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
+                                    {% csrf_token %}
+                                </form>
+                                
+                            </ul>
+                            
+                        </li>   
+                    {% else %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">User</a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li> 
+                                <li><a class="dropdown-item" href="{% url 'signup' %}">Sign Up</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5">
+        <div class="container px-5 my-5">
+            <div class="row gx-5">
+                <div class="col-lg-3">
+                    <div class="d-flex align-items-center mt-lg-5 mb-4">
+                        <img class="img-fluid rounded-circle" src="{{ post.author.photo.url }}" style="width: 4rem;" alt="..." />
+                        <div class="ms-3">
+                            <div class="fw-bold">{{ post.author }}</div>
+                            <div class="text-muted">{{ post.author.email }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <!-- Post content-->
+                    <article>
+                        <!-- Post header-->
+                        <header class="mb-4">
+                            <!-- Post title-->
+                            <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
+                            <!-- Post meta content-->
+                            <div class="text-muted fst-italic mb-2">{{ post.date }}</div>
+                            <!-- Post categories-->
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{ post.title }}</a>
+                        </header>
+                        <!-- Preview image figure-->
+                        <figure class="mb-4"><img class="img-fluid rounded" src="{{ post.photo.url }}" style="height: 400px; width: 800px;" alt="..." /></figure>
+                        <br>
+                        <!-- Post content-->
+                        <section class="mb-5">
+                            {{ post.content }}
+                        </section>
+                    </article>
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <label>Title:</label>
+                        {{ form.title }}
+                        <br><br>
+                        <label>Content:</label>
+                        {{ form.content }}
+                        <br><br>
+                        <label>Tags:</label>
+                        {{ form.tags }}
+                        <br><br>
+                        <label>Photo:</label>
+                        <input type="file" name="photo" accept="image/*" id="id_photo">
+                        <br><br>
+                        <button type="submit">Update</button>
+                    </form>
+</main>
+{% endblock content %}
